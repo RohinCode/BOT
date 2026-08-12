@@ -48,7 +48,7 @@ module.exports = (bot) => {
 `,
       Markup.inlineKeyboard([
         [
-          Markup.button.url("گیت‌هاب من", "https://github.com/RhinCode"),
+          Markup.button.url("گیت‌هاب من", "https://github.com/RohinCode"),
           Markup.button.url("اینستای من", "https://instagram.com/RohinCode"),
         ],
         [Markup.button.callback("برگشت🔙", "back")],

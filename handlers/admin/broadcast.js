@@ -5,7 +5,7 @@ const User = require("../../models/Users");
 const isAdmin = require("../../middlewares/isAdmin");
 
 async function sendBroadcast(ctx, bot) {
-  if (!(broadcast[ctx.from.id] && ctx.from.id === ctx.from.id)) {
+  if (!(broadcast[ctx.from.id])) {
     return false;
   }
 

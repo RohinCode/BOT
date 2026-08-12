@@ -4,7 +4,7 @@ const OWNER_ID = process.env.OWNER_ID;
 
 module.exports = (bot) => {
   bot.command("showAdmins", async (ctx) => {
-    if (ctx.from.id !== OWNER_ID) return;
+    if (String(ctx.from.id) !== OWNER_ID) return;
 
     const users = await User.find({ isAdmin: true });
 
