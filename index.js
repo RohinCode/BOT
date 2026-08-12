@@ -15,9 +15,6 @@ bot.use(async (ctx, next) => {
 
 require("./handlers")(bot);
 
-logger.error("sfrgrre");
-logger.info("sf[pfd[pf");
-
 bot.launch();
 
 // HTTP server برای Koyeb
