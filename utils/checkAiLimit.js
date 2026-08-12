@@ -1,4 +1,4 @@
-const User = require("../models/users");
+const User = require("../models/Users");
 
 module.exports = async function checkAiLimit(ctx) {
   const user = await User.findOne({
