@@ -1,4 +1,4 @@
-const User = require("../../models/users");
+const User = require("../../models/Users");
 const isAdmin = require("../../middlewares/isAdmin");
 const getUserStatus = require("../../utils/getUserStatus");
 
