@@ -15,7 +15,33 @@ bot.use(async (ctx, next) => {
 
 require("./handlers")(bot);
 
-bot.launch();
+bot.catch((error, ctx) => {
+  logger.error("TELEGRAM BOT ERROR", {
+    message: error.message,
+    stack: error.stack,
+    userId: ctx.from?.id,
+    username: ctx.from?.username,
+  });
+});
+
+bot
+  .launch({
+    dropPendingUpdates: true,
+  })
+  .then(() => {
+    logger.info("Telegram bot started successfully");
+  })
+  .catch((error) => {
+    logger.error("Telegram bot failed to start", {
+      message: error.message,
+      stack: error.stack,
+    });
+
+    process.exit(1);
+  });
+
+process.once("SIGINT", () => bot.stop("SIGINT"));
+process.once("SIGTERM", () => bot.stop("SIGTERM"));
 
 // HTTP server برای Koyeb
 const http = require("http");
