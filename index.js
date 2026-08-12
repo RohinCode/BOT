@@ -1,6 +1,6 @@
 require("dotenv").config();
 require("./startup/db")();
-
+const logger = require("./utils/logger");
 const syncUser = require("./utils/syncUser");
 const { Telegraf } = require("telegraf");
 const bot = new Telegraf(process.env.BOT_TOKEN);
@@ -14,6 +14,9 @@ bot.use(async (ctx, next) => {
 });
 
 require("./handlers")(bot);
+
+logger.error("sfrgrre");
+logger.info("sf[pfd[pf");
 
 bot.launch();
 

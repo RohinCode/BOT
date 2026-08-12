@@ -1,11 +1,24 @@
-async function errorHandler(ctx, next) {
+const logger = require("../utils/logger");
+
+module.exports = async (ctx, next) => {
   try {
     await next();
   } catch (error) {
-    console.error("BOT ERROR:", error);
+    logger.error("BOT ERROR", {
+      message: error.message,
+      stack: error.stack,
+      userId: ctx.from?.id,
+      username: ctx.from?.username,
+      updateType: ctx.updateType,
+    });
 
-    await ctx.reply("خطایی در اجرای درخواست رخ داد ❌");
+    try {
+      await ctx.reply("خطایی در اجرای درخواست رخ داد ❌");
+    } catch (replyError) {
+      logger.error("FAILED TO SEND ERROR MESSAGE", {
+        message: replyError.message,
+        stack: replyError.stack,
+      });
+    }
   }
-}
-
-module.exports = errorHandler;
+};
