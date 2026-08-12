@@ -1,5 +1,5 @@
 const { Markup } = require("telegraf");
-const User = require("../../models/users");
+const User = require("../../models/Users");
 const OWNER_ID = process.env.OWNER_ID;
 const { userAction } = require("../../states/botState");
 const {
