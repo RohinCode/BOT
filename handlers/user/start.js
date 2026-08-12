@@ -1,5 +1,5 @@
 const { Markup } = require("telegraf");
-const Payload = require("../../models/payload");
+const Payload = require("../../models/Payload");
 const okOrNo = require("../../utils/okOrNo");
 function welcomeMessage(name) {
   return `
