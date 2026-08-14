@@ -16,12 +16,14 @@ function repeaMessage(bot) {
   });
 
   bot.action("space", async (ctx) => {
+    await ctx.answerCbQuery();
     ctx.reply("خوبه، حالا متنی که میخوای تکرار بشه رو بفرست");
     repeatMessage[ctx.from.id] = true;
     what[ctx.from.id] = " ";
   });
 
   bot.action("newLine", async (ctx) => {
+    await ctx.answerCbQuery();
     ctx.reply("خوبه، حالا متنی که میخوای تکرار بشه رو بفرست");
     repeatMessage[ctx.from.id] = true;
     what[ctx.from.id] = "\n";

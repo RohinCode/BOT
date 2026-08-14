@@ -7,6 +7,7 @@ const {
 const { aiMessage } = require("./user/ai");
 const { sendBroadcast } = require("./admin/broadcast");
 const { AmirTalkToYou, talkWithAmir } = require("./user/connect");
+const { sms, numberOfRepeat } = require("./user/repeat");
 const {
   aiusers,
   contactUsers,
@@ -35,5 +36,7 @@ module.exports = (bot) => {
     if (await executeRule(ctx)) return;
     if (await removeRule(ctx)) return;
     if (await editRule(ctx)) return;
+    if (await sms(ctx)) return;
+    if (await numberOfRepeat(ctx)) return;
   });
 };
