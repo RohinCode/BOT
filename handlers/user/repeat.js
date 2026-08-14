@@ -4,6 +4,15 @@ let what = {};
 let number = {};
 let message = {};
 let reply = {};
+function exitRepeat(userId) {
+  delete repeatMessage[userId];
+  delete repeatNumber[userId];
+  delete message[userId];
+  delete number[userId];
+  delete reply[userId];
+  delete what[userId];
+}
+
 function repeaMessage(bot) {
   bot.command("repeat", async (ctx) => {
     ctx.reply(
@@ -34,7 +43,7 @@ function sms(ctx) {
   if (!repeatMessage[ctx.from.id]) return false;
   message[ctx.from.id] = ctx.message.text;
   ctx.reply(
-    "خب. حالا تعدادی که می‌خوای متن تکرار بشه رو بفرست.\n(کمتر از 50 باشه)\n مثلا: 20",
+    "خب. حالا تعدادی که می‌خوای متن تکرار بشه رو بفرست.\n(کمتر از 50 باشه و به انگلیسی باشه)\n مثلا: 20",
   );
   delete repeatMessage[ctx.from.id];
   repeatNumber[ctx.from.id] = true;
@@ -43,22 +52,25 @@ function sms(ctx) {
 
 function numberOfRepeat(ctx) {
   if (!repeatNumber[ctx.from.id]) return false;
-  ctx.reply("گرفتمش!");
   number[ctx.from.id] = Number(ctx.message.text.trim());
   if (!Number.isInteger(number[ctx.from.id])) {
     ctx.reply("عدد وارد کن!");
+    exitRepeat(ctx.from.id);
     return false;
   }
   if (number[ctx.from.id] > 50) {
     ctx.reply("عددی کوچیک‌تر از پنجاه انتخاب کن");
+    exitRepeat(ctx.from.id);
     return false;
   }
   if (number[ctx.from.id] < 0) {
     ctx.reply("عدد نمی‌تونه منفی باشه");
+    exitRepeat(ctx.from.id);
     return false;
   }
   if (number[ctx.from.id] == 0) {
     ctx.reply("عدد نمی‌تونه صفر باشه");
+    exitRepeat(ctx.from.id);
     return false;
   }
 
@@ -70,11 +82,7 @@ function numberOfRepeat(ctx) {
   }
 
   ctx.reply(reply[ctx.from.id]);
-  delete message[ctx.from.id];
-  delete number[ctx.from.id];
-  delete reply[ctx.from.id];
-  delete what[ctx.from.id];
-  delete repeatNumber[ctx.from.id];
+  exitRepeat(ctx.from.id);
   return true;
 }
 
