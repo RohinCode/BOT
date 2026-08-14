@@ -36,6 +36,7 @@ function sms(ctx) {
   ctx.reply(
     "خب. حالا تعدادی که می‌خوای متن تکرار بشه رو بفرست.\n(کمتر از 50 باشه)\n مثلا: 20",
   );
+  delete repeatMessage[ctx.from.id];
   repeatNumber[ctx.from.id] = true;
   return true;
 }
@@ -73,7 +74,6 @@ function numberOfRepeat(ctx) {
   delete number[ctx.from.id];
   delete reply[ctx.from.id];
   delete what[ctx.from.id];
-  delete repeatMessage[ctx.from.id];
   delete repeatNumber[ctx.from.id];
   return true;
 }
