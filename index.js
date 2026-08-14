@@ -1,5 +1,7 @@
 require("dotenv").config();
+console.log("1 - before db");
 require("./startup/db")();
+console.log("2 - after db");
 const logger = require("./utils/logger");
 const syncUser = require("./utils/syncUser");
 const { Telegraf } = require("telegraf");
@@ -13,7 +15,9 @@ bot.use(async (ctx, next) => {
   await next();
 });
 
+console.log("3 - before handlers");
 require("./handlers")(bot);
+console.log("4 - after handlers");
 
 bot.catch((error, ctx) => {
   logger.error("TELEGRAM BOT ERROR", {
@@ -24,11 +28,13 @@ bot.catch((error, ctx) => {
   });
 });
 
+console.log("5 - before launch");
 bot
   .launch({
     dropPendingUpdates: true,
   })
   .then(() => {
+    console.log("6 - launch completed");
     logger.info("Telegram bot started successfully");
   })
   .catch((error) => {
