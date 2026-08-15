@@ -13,7 +13,7 @@ module.exports = (bot) => {
     for (const user of users) {
       const username = user.username ? `@${user.username}` : "ندارد";
 
-      message += `${username} :آیدی🆔
+      message += `🆔آیدی: ${username}
 👤 اسم: ${user.name}\n\n`;
     }
 
