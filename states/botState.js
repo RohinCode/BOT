@@ -7,5 +7,5 @@ module.exports = {
   ruleAction: {},
   repeatNumber:{},
   repeatMessage:{},
-  deleteDocument:{},
+  deleteFile:{},
 };
