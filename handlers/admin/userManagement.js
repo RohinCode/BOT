@@ -138,7 +138,7 @@ async function blockUser(bot, ctx) {
     return false;
   }
 
-  if (targetUser[ctx.from.id].telegramId === OWNER_ID) {
+  if (targetUser[ctx.from.id].telegramId == OWNER_ID) {
     ctx.reply("ایشون سازنده‌ی بات هستند. شما نمی‌توانید او را بلاک کنید!");
     notifyOwnerAboutBlockAttempt(
       bot,

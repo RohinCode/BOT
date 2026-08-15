@@ -2,24 +2,20 @@ module.exports = async function syncUser(ctx) {
   const User = require("../models/Users");
   const logger = require("./logger");
   try {
-    let user = await User.findOne({
-      telegramId: ctx.from.id,
-    });
-
-    if (!user) {
-      user = new User({
-        telegramId: ctx.from.id,
-        name: ctx.from.first_name,
-        username: ctx.from.username,
-      });
-
-      await user.save();
-    } else {
-      await User.updateOne(
-        { telegramId: ctx.from.id },
-        { $set: { username: ctx.from.username, name: ctx.from.first_name } },
-      );
-    }
+    await User.findOneAndUpdate(
+      { telegramId: ctx.from.id },
+      {
+        $set: {
+          username: ctx.from.username,
+          name: ctx.from.first_name,
+        },
+      },
+      {
+        upsert: true,
+        new: true,
+        setDefaultsOnInsert: true,
+      },
+    );
   } catch (error) {
     logger.error("SYNC USER ERROR", {
       message: error.message,

@@ -27,9 +27,6 @@ module.exports = async function checkAiLimit(ctx) {
     await ctx.reply(
       "خیلی شرمنده. اما نمی‌تونی روزانه بیشتر از 10 پیام به هوش مصنوعی بدی! \nفردا دوباره امتحان کن",
     );
-
-    await user.save();
-
     return false;
   }
 

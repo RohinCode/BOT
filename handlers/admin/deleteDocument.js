@@ -14,13 +14,14 @@ function deleteDocument(bot) {
 async function getLink(ctx) {
   if (!deleteFile[ctx.from.id]) return false;
   const payload = ctx.message.text.trim();
-  const document = await Payload.findOne({ payload });
+  const document = await Payload.findOneAndDelete({ payload });
+
   if (!document) {
     ctx.reply("این فایل وجود ندارد");
     delete deleteFile[ctx.from.id];
     return false;
   }
-  await Payload.deleteOne({ payload });
+  
   ctx.reply("انجام شد");
   delete deleteFile[ctx.from.id];
   return true;

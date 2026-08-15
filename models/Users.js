@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const userSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
-    username: { type: String, default: null },
+    username: { type: String, default: null, index: true },
     telegramId: { type: Number, required: true, unique: true },
     isAdmin: { type: Boolean, default: false },
     aiMode: { type: Boolean, default: false },

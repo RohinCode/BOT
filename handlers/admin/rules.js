@@ -41,7 +41,7 @@ function registerRuleHandlers(bot) {
 async function createRule(ctx) {
   if (ruleAction[ctx.from.id] !== "create") return false;
 
-  const thatIsRepeat = await Rule.findOne({});
+  const thatIsRepeat = await Rule.findOne({ command });
 
   if (thatIsRepeat) {
     ctx.reply("این دستور از قبل وجود داشت");

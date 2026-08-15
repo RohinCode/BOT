@@ -14,7 +14,7 @@ function exitRepeat(userId) {
   delete what[userId];
 }
 
-function repeaMessage(bot) {
+function repeatMessage(bot) {
   bot.command("repeat", async (ctx) => {
     if (!(await okOrNo(ctx))) return;
     ctx.reply(
@@ -96,7 +96,7 @@ function numberOfRepeat(ctx) {
 }
 
 module.exports = {
-  repeaMessage,
+  repeatMessage,
   sms,
   numberOfRepeat,
 };

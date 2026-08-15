@@ -1,5 +1,5 @@
 require("dotenv").config();
-
+const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET;
 const { Telegraf } = require("telegraf");
 const http = require("http");
 
@@ -39,6 +39,11 @@ const webhookCallback = bot.webhookCallback(webhookPath);
 
 const server = http.createServer((req, res) => {
   if (req.url === webhookPath && req.method === "POST") {
+    const secret = req.headers["x-telegram-bot-api-secret-token"];
+    if (secret !== WEBHOOK_SECRET) {
+      res.writeHead(403);
+      return res.end("Forbidden");
+    }
     return webhookCallback(req, res);
   }
 
@@ -52,7 +57,9 @@ server.listen(port, async () => {
   const webhookUrl = `https://bot-a0h9.onrender.com${webhookPath}`;
 
   try {
-    await bot.telegram.setWebhook(webhookUrl);
+    await bot.telegram.setWebhook(webhookUrl, {
+      secret_token: WEBHOOK_SECRET,
+    });
 
     console.log("Webhook set successfully");
 
