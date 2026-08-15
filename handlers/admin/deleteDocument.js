@@ -14,7 +14,7 @@ function deleteDocument(bot) {
 async function getLink(ctx) {
   if (!deleteFile[ctx.from.id]) return false;
   const payload = ctx.message.text.trim();
-  const document = await Payload.find({ payload });
+  const document = await Payload.findOne({ payload });
   if (!document) {
     ctx.reply("این فایل وجود ندارد");
     delete deleteFile[ctx.from.id];
