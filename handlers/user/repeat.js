@@ -1,5 +1,6 @@
 const { Markup } = require("telegraf");
 const { repeatNumber, repeatMessage } = require("../../states/botState");
+const okOrNo = require("../../utils/okOrNo");
 let what = {};
 let number = {};
 let message = {};
@@ -15,6 +16,7 @@ function exitRepeat(userId) {
 
 function repeaMessage(bot) {
   bot.command("repeat", async (ctx) => {
+    if (!(await okOrNo(ctx))) return;
     ctx.reply(
       "هر پیامی که بفرستی، به تعدادی که میخوای تکرار می‌کنم.\nاول انتخاب کن بین متنت از چی استفاده کنم",
       Markup.inlineKeyboard([
