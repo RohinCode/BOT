@@ -4,7 +4,7 @@ const getUserStatus = require("../../utils/getUserStatus");
 
 module.exports = (bot) => {
   bot.command("showUsers", isAdmin, async (ctx) => {
-    const users = await User.find().limit(30).sort({ createAt: -1 });
+    const users = await User.find().limit(20).sort({ createAt: -1 });
 
     let message = "👤 لیست کاربران:\n\n";
 
@@ -13,9 +13,7 @@ module.exports = (bot) => {
       const status = getUserStatus(user);
       message += `${username} :آیدی🆔
 👤 اسم: ${user.name}
-وضعیت: ${status}
-
-`;
+وضعیت: ${status}\n\n`;
     }
 
     await ctx.reply(message);

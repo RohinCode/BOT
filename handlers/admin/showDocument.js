@@ -4,7 +4,7 @@ const getUserStatus = require("../../utils/getUserStatus");
 
 module.exports = (bot) => {
   bot.command("showDocument", isAdmin, async (ctx) => {
-    const documents = await Payload.find().limit(20).sort({ createAt: -1 });
+    const documents = await Payload.find().limit(22).sort({ createAt: -1 });
 
     let message = "لیست فایل‌های ذخیره شده\n\n";
     for (const document of documents) {
