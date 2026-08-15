@@ -27,6 +27,9 @@ module.exports = (bot) => {
 
 نشون دادن فایل‌های ذخیره شده
 /showDocument
+
+حذف کردن فایل‌ها
+/deleteDocument
 `,
     );
   });

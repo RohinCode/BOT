@@ -16,8 +16,11 @@ module.exports = (bot) => {
       const payload = ctx.startPayload;
 
       if (payload) {
-        if(!await okOrNo(ctx)) return
+        if (!(await okOrNo(ctx))) return;
         const file = await Payload.findOne({ payload });
+        if (!file) {
+        ctx.reply("این فایل وجود ندارد");
+        }
         await ctx.replyWithDocument(file.fileId);
         return;
       }
