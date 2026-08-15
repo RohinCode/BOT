@@ -11,7 +11,7 @@ module.exports = (bot) => {
     for (const user of users) {
       const username = user.username ? `@${user.username}` : "ندارد";
       const status = getUserStatus(user);
-      message += `${username} :آیدی🆔
+      message += `:آیدی🆔 ${username}
 👤 اسم: ${user.name}
 وضعیت: ${status}\n\n`;
     }

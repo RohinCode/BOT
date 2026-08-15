@@ -14,9 +14,7 @@ module.exports = (bot) => {
       const username = user.username ? `@${user.username}` : "ندارد";
 
       message += `${username} :آیدی🆔
-👤 اسم: ${user.name}
-
-`;
+👤 اسم: ${user.name}\n\n`;
     }
 
     await ctx.reply(message);
