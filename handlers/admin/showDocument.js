@@ -10,7 +10,7 @@ module.exports = (bot) => {
     for (const document of documents) {
       let payload = document.payload;
       const username = document;
-      message += `آدرس: https://t.me/RohinCodeBot?start=${payload}`;
+      message += `آدرس: https://t.me/RohinCodeBot?start=${payload}\n\n`;
     }
 
     await ctx.reply(message);
