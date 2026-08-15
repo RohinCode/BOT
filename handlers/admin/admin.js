@@ -24,7 +24,10 @@ module.exports = (bot) => {
 
 نشون دادن کاربران👤
 /showUsers
-      `,
+
+نشون دادن فایل‌های ذخیره شده
+/showDocument
+`,
     );
   });
 };
