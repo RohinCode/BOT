@@ -20,7 +20,7 @@ db();
 
 bot.use(async (ctx, next) => {
   await syncUser(ctx);
-  await checkBlock(ctx)
+  if (!(await checkBlock(ctx))) return;
   await next();
 });
 
