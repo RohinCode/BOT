@@ -1,6 +1,6 @@
 const Payload = require("../../models/Payload");
 const isAdmin = require("../../middlewares/isAdmin");
-const { deleteFile } = require("../../states");
+const { deleteFile } = require("../../states/botState");
 
 function deleteDocument(bot) {
   bot.command("deleteDocument", isAdmin, async (ctx) => {
