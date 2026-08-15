@@ -20,6 +20,7 @@ function repeaMessage(bot) {
       Markup.inlineKeyboard([
         [Markup.button.callback("بین هر متن فاصله بزار", "space")],
         [Markup.button.callback("بعد هر متن برو خط بعدی", "newLine")],
+        [Markup.button.callback("بینشون هیچی نزار", "notthing")],
       ]),
     );
   });
@@ -29,6 +30,12 @@ function repeaMessage(bot) {
     ctx.reply("خوبه، حالا متنی که میخوای تکرار بشه رو بفرست");
     repeatMessage[ctx.from.id] = true;
     what[ctx.from.id] = " ";
+  });
+  bot.action("notthing", async (ctx) => {
+    await ctx.answerCbQuery();
+    ctx.reply("خوبه، حالا متنی که میخوای تکرار بشه رو بفرست");
+    repeatMessage[ctx.from.id] = true;
+    what[ctx.from.id] = "";
   });
 
   bot.action("newLine", async (ctx) => {

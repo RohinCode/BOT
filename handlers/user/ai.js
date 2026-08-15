@@ -1,5 +1,4 @@
 const { aiusers } = require("../../states/botState");
-const checkBlock = require("../../utils/checkBlock");
 const okOrNo = require("../../utils/okOrNo");
 const checkAiLimit = require("../../utils/checkAiLimit");
 const API_KEY = process.env.API_KEY;
@@ -67,8 +66,6 @@ async function aiMessage(ctx) {
 
 function rohinGPT(bot) {
   bot.command("rohingpt", async (ctx) => {
-    const allowed = await checkBlock(ctx);
-    if (!allowed) return;
     const isMember = await okOrNo(ctx);
     if (!isMember) return;
 

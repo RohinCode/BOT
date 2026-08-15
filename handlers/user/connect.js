@@ -1,5 +1,4 @@
 const { contactUsers, answerMode } = require("../../states/botState");
-const checkBlock = require("../../utils/checkBlock");
 const okOrNo = require("../../utils/okOrNo");
 const { Markup } = require("telegraf");
 require("dotenv").config();
@@ -58,8 +57,6 @@ async function AmirTalkToYou(ctx, bot) {
 
 function connect(bot) {
   bot.command("connect", async (ctx) => {
-    const allowed = await checkBlock(ctx);
-    if (!allowed) return;
     const isMember = await okOrNo(ctx);
     if (!isMember) return;
 

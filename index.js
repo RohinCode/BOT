@@ -1,23 +1,30 @@
 require("dotenv").config();
-console.log("1 - before db");
-require("./startup/db")();
-console.log("2 - after db");
-const logger = require("./utils/logger");
-const syncUser = require("./utils/syncUser");
+
 const { Telegraf } = require("telegraf");
-const bot = new Telegraf(process.env.BOT_TOKEN);
+const http = require("http");
+
+const db = require("./startup/db");
+const syncUser = require("./utils/syncUser");
+const logger = require("./utils/logger");
 const errorHandler = require("./middlewares/errorHandler");
+const checkBlock = require("./utils/checkBlock");
+
+const bot = new Telegraf(process.env.BOT_TOKEN);
+
+const webhookPath = "/telegram/webhook";
+const port = process.env.PORT || 3000;
 
 bot.use(errorHandler);
 
+db();
+
 bot.use(async (ctx, next) => {
   await syncUser(ctx);
+  await checkBlock(ctx)
   await next();
 });
 
-console.log("3 - before handlers");
 require("./handlers")(bot);
-console.log("4 - after handlers");
 
 bot.catch((error, ctx) => {
   logger.error("TELEGRAM BOT ERROR", {
@@ -28,37 +35,43 @@ bot.catch((error, ctx) => {
   });
 });
 
-console.log("5 - before launch");
-bot
-  .launch({
-    dropPendingUpdates: true,
-  })
-  .then(() => {
-    console.log("6 - launch completed");
-    logger.info("Telegram bot started successfully");
-  })
-  .catch((error) => {
-    logger.error("Telegram bot failed to start", {
+const webhookCallback = bot.webhookCallback(webhookPath);
+
+const server = http.createServer((req, res) => {
+  if (req.url === webhookPath && req.method === "POST") {
+    return webhookCallback(req, res);
+  }
+
+  res.writeHead(200);
+  res.end("RohinBot is running!");
+});
+
+server.listen(port, async () => {
+  console.log(`Server running on port ${port}`);
+
+  const webhookUrl = `https://bot-a0h9.onrender.com${webhookPath}`;
+
+  try {
+    await bot.telegram.setWebhook(webhookUrl);
+
+    console.log("Webhook set successfully");
+
+    const info = await bot.telegram.getWebhookInfo();
+
+    console.log("Webhook info:");
+    console.log(info);
+  } catch (error) {
+    logger.error("WEBHOOK SETUP ERROR", {
       message: error.message,
       stack: error.stack,
     });
+  }
+});
 
-    process.exit(1);
-  });
+process.once("SIGINT", () => {
+  bot.stop("SIGINT");
+});
 
-process.once("SIGINT", () => bot.stop("SIGINT"));
-process.once("SIGTERM", () => bot.stop("SIGTERM"));
-
-// HTTP server برای Koyeb
-const http = require("http");
-
-const port = process.env.PORT || 3000;
-
-http
-  .createServer((req, res) => {
-    res.writeHead(200);
-    res.end("RohinBot is running!");
-  })
-  .listen(port, () => {
-    console.log(`Server running on port ${port}`);
-  });
+process.once("SIGTERM", () => {
+  bot.stop("SIGTERM");
+});

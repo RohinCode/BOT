@@ -1,6 +1,5 @@
 const { broadcast } = require("../../states/botState");
 const { Markup } = require("telegraf");
-const checkBlock = require("../../utils/checkBlock");
 const User = require("../../models/Users");
 const isAdmin = require("../../middlewares/isAdmin");
 
@@ -28,8 +27,6 @@ async function sendBroadcast(ctx, bot) {
 
 function registerBroadcastHandler(bot) {
   bot.command("broadcast",isAdmin, async (ctx) => {
-    const allowed = await checkBlock(ctx);
-    if (!allowed) return;
     await ctx.reply(
       `
       با این قابلیت می‌تونی به همه‌ی کسانی که از بات استفاده می‌کنند، پیام بدی
