@@ -1,7 +1,7 @@
 const { Markup } = require("telegraf");
 
 module.exports =  async function checkChannelMembership(ctx) {
-  const isMember = await ctx.telegram.getChatisMember("@RohinCode", ctx.from.id);
+  const isMember = await ctx.telegram.getChatMember("@RohinCode", ctx.from.id);
 
   if (isMember.status === "left") {
     await ctx.reply(
