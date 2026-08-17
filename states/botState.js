@@ -6,6 +6,7 @@ module.exports = {
   userAction: {},
   ruleAction: {},
   repeatCount: {},
+  messageToRepeat:{},
   repeatMessage: {},
   deleteFile: {},
   websiteMode: {},
