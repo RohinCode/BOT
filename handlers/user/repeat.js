@@ -60,7 +60,7 @@ function sms(ctx) {
 }
 
 function numberOfRepeat(ctx) {
-  if (!repeatNumber[ctx.from.id]) return false;
+  if (!repeatCount[ctx.from.id]) return false;
   number[ctx.from.id] = Number(ctx.message.text.trim());
   if (!Number.isInteger(number[ctx.from.id])) {
     ctx.reply("عدد وارد کن!");
