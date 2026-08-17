@@ -8,5 +8,5 @@ module.exports = {
   repeatCount: {},
   repeatMessage: {},
   deleteFile: {},
-  webMode: {},
+  websiteMode: {},
 };
