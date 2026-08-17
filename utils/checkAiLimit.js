@@ -9,7 +9,6 @@ module.exports = async function checkAiLimit(ctx) {
     return false;
   }
 
-  // ادمین محدودیت ندارد
   if (user.isAdmin) {
     return true;
   }

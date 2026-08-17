@@ -5,7 +5,8 @@ module.exports = {
   broadcast: {},
   userAction: {},
   ruleAction: {},
-  repeatNumber:{},
-  repeatMessage:{},
-  deleteFile:{},
+  repeatCount: {},
+  repeatMessage: {},
+  deleteFile: {},
+  webMode: {},
 };

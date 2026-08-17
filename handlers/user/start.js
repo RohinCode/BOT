@@ -1,6 +1,6 @@
 const { Markup } = require("telegraf");
 const Payload = require("../../models/Payload");
-const okOrNo = require("../../utils/okOrNo");
+const checkChannelMembership = require("../../utils/checkChannelMembership");
 function welcomeMessage(name) {
   return `
 خوش اومدی ${name}🤝
@@ -16,7 +16,7 @@ module.exports = (bot) => {
       const payload = ctx.startPayload;
 
       if (payload) {
-        if (!(await okOrNo(ctx))) return;
+        if (!(await checkChannelMembership(ctx))) return;
         const file = await Payload.findOne({ payload });
         if (!file) {
           ctx.reply("این فایل وجود ندارد");

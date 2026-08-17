@@ -1,9 +1,9 @@
 const { Markup } = require("telegraf");
 
-module.exports =  async function okOrNo(ctx) {
-  const member = await ctx.telegram.getChatMember("@RohinCode", ctx.from.id);
+module.exports =  async function checkChannelMembership(ctx) {
+  const isMember = await ctx.telegram.getChatisMember("@RohinCode", ctx.from.id);
 
-  if (member.status === "left") {
+  if (isMember.status === "left") {
     await ctx.reply(
       `
     برای استفاده باید عضو چنل بشید.

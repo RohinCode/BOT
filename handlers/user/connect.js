@@ -1,5 +1,5 @@
 const { contactUsers, answerMode } = require("../../states/botState");
-const okOrNo = require("../../utils/okOrNo");
+const checkChannelMembership = require("../../utils/checkChannelMembership");
 const { Markup } = require("telegraf");
 require("dotenv").config();
 const OWNER_ID = process.env.OWNER_ID;
@@ -57,7 +57,7 @@ async function AmirTalkToYou(ctx, bot) {
 
 function connect(bot) {
   bot.command("connect", async (ctx) => {
-    const isMember = await okOrNo(ctx);
+    const isMember = await checkChannelMembership(ctx);
     if (!isMember) return;
 
     contactUsers[ctx.from.id] = true;

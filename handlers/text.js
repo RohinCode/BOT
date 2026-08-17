@@ -23,6 +23,8 @@ const {
   promoteUser,
 } = require("./admin/userManagement");
 
+const { handleWebsiteUrl } = require("./user/findWeb");
+
 module.exports = (bot) => {
   bot.on("text", async (ctx) => {
     if (await sendBroadcast(ctx, bot)) return;
@@ -40,5 +42,6 @@ module.exports = (bot) => {
     if (await sms(ctx)) return;
     if (await numberOfRepeat(ctx)) return;
     if (await getLink(ctx)) return;
+    if (await handleWebsiteUrl(ctx)) return;
   });
 };
